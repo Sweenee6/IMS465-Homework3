@@ -8,9 +8,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private float speed;
-    [SerializeField]
-    private PlayerInput playerInput;
-    //[SerializeField] private MeshRenderer meshRenderer;
     private Vector3 direction;
 
     // Start is called before the first frame update
@@ -42,6 +39,35 @@ public class PlayerController : MonoBehaviour
     {
         var dir = val.Get<Vector2>();
         direction = new Vector2(dir.x,dir.y);
+    }
+
+    public void OnFire()
+    {
+        var rayColor = Color.red;
+        var rayDist = 10.0f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, rayDist);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("Hit " + hit.collider);
+            rayColor = Color.green;
+            
+            //change color of hit
+            hit.collider.gameObject.GetComponent<SpriteRenderer>().color = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+        }
+
+        Debug.DrawRay(transform.position, Vector2.up * rayDist, rayColor, 1.0f);
+
+        /*ray = new Ray(transform.position, Vector2.up);
+        var rayColor = Color.red;
+        var rayDist = 10.0f;
+        if (Physics2D.Raycast(ray., out var hit, rayDist))
+        {
+            rayColor = Color.green;
+            Destroy(hit.collider.GetComponent<MeshRenderer>());
+        }
+        Debug.DrawRay(ray.origin, ray.direction * rayDist, rayColor, 1.0f);
+    */
     }
 
 }
