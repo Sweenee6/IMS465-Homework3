@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+       rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
     }
 
     public void OnMove(InputValue val)
