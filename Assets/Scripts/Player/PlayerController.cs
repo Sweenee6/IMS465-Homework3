@@ -27,13 +27,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-       rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+        if (rb.GetComponent<Rigidbody2D>().gravityScale == 0f)
+        {
+            rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+        }
+        else
+        {
+            rb.AddForce(direction.normalized * 15f);
+        }
+       
     }
 
     public void OnMove(InputValue val)
     {
         var dir = val.Get<Vector2>();
-        direction = new Vector3(dir.x,dir.y,0);
+        direction = new Vector2(dir.x,dir.y);
     }
 
 }
